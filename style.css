@@ -48,13 +48,22 @@ div {
 }
 
 .result > * {
-    margin: 10px;
+    margin: 5px;
 }
 
 .roundResult {
-    margin-top: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     min-height: 10vh;
-    line-height: 10vh;
+    line-height: 5vh;
+}
+
+.roundChoices {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 10vh;
 }
 
 
