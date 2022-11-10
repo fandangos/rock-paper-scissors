@@ -1,5 +1,49 @@
 const choice = ["rock", "paper", "scissors"]
 
+let playerChoice = null;
+let p1Selection = null;
+let p1 = 0;
+let cpu = 0;
+let round = 0;
+let win = "win";
+let lose = "lose";
+let draw = "draw";
+
+const buttons = document.querySelectorAll('.button');
+const reset = document.querySelector('#playAgain');
+const p1ScoreNumber = document.querySelector('#p1ScoreNumber');
+const cpuScoreNumber = document.querySelector('#cpuScoreNumber');
+const roundNumber = document.querySelector('#roundNumber');
+const roundResult = document.querySelector('#roundResult');
+const finalResult = document.querySelector('#finalResult');
+const finalResultText = document.querySelector('#finalResultText');
+
+reset.addEventListener('click', resetGame);
+
+buttons.forEach(btn => {
+    btn.addEventListener('mouseover', event => {
+        btn.style.backgroundColor = '#fff';
+    })
+});
+
+buttons.forEach(btn => {
+    btn.addEventListener('mouseleave', event => {
+        btn.style.backgroundColor = '';
+    })
+})
+
+buttons.forEach(btn => {
+    btn.addEventListener('mousedown', event => {
+        btn.style.transform = 'scale(1.15)';
+    })
+})
+
+buttons.forEach(btn => {
+    btn.addEventListener('mouseup', event => {
+        btn.style.transform = 'none';
+    })
+})
+
 function getComputerChoice() {
     for (let i = 0; i < 3; i++) {
         const random = choice[Math.floor(Math.random() * choice.length)];
@@ -7,97 +51,108 @@ function getComputerChoice() {
     }
 }
 
-function getPlayerChoice() {
-    let player = prompt("Type Rock, Paper or Scissors");
-
-    if (player == null) {
-        return null
-    } else if (player.match(/^rock$/i)) {
-        let rock = "rock";
-        return rock;
-    } else if (player.match(/^paper$/i)) {
-        let paper = "paper";
-        return paper;
-    } else if (player.match(/^scissors$/i)) {
-        let scissors = "scissors";
-        return scissors;
-    } else {
-        getPlayerChoice()
-    }
+function resetGame() {
+    playerChoice = null;
+    p1Selection = null;
+    p1 = 0;
+    p1ScoreNumber.textContent = p1;
+    cpu = 0;
+    p1ScoreNumber.textContent = cpu;
+    round = 0;
+    roundNumber.textContent = 'Let\'s go!';
+    finalResult.style.display = 'none';
+    roundResult.textContent = '';
 }
 
+const rockBtn = document.querySelector('#rock');
+const paperBtn = document.querySelector('#paper');
+const scissorsBtn = document.querySelector('#scissors');
+
+rockBtn.addEventListener('click', function () {
+    if (round < 5) {
+        round++;
+        playerChoice = "rock";
+        game();
+    } else {
+        console.log("Championship is over. Play again?")
+    }
+});
+
+paperBtn.addEventListener('click', function () {
+    if (round < 5) {
+        round++;
+        playerChoice = "paper";
+        game();
+    } else {
+        console.log("Championship is over. Play again?")
+    }
+});
+
+scissorsBtn.addEventListener('click', function () {
+    if (round < 5) {
+        round++;
+        playerChoice = "scissors";
+        game();
+    }
+    else {
+        console.log("Championship is over. Play again?")
+    }
+});
+
 function playRound() {
-    let win = "win"
-    let lose = "lose"
-    let draw = "draw"
-    let playerChoice = getPlayerChoice();
+
     let computerChoice = getComputerChoice();
 
     if (playerChoice == null) {
         return null
     }
-    else if (playerChoice == "rock" && computerChoice == "paper") {
-        console.log(`You lose! ${computerChoice} beats ${playerChoice}`)
+    else if (playerChoice == "rock" && computerChoice == "paper" ||
+        playerChoice == "paper" && computerChoice == "scissors" ||
+        playerChoice == "scissors" && computerChoice == "rock") {
         return lose
-    } else if (playerChoice == "rock" && computerChoice == "scissors") {
-        console.log(`You won! ${playerChoice} beats ${computerChoice}`)
+    } else if (playerChoice == "rock" && computerChoice == "scissors" ||
+        playerChoice == "paper" && computerChoice == "rock" ||
+        playerChoice == "scissors" && computerChoice == "paper") {
         return win
-    } else if (playerChoice == "rock" && computerChoice == "rock") {
-        console.log(`It's a draw ${playerChoice} is the same as ${computerChoice}`)
-        return draw
-    } else if (playerChoice == "paper" && computerChoice == "rock") {
-        console.log(`You won! ${playerChoice} beats ${computerChoice}`)
-        return win
-    } else if (playerChoice == "paper" && computerChoice == "scissors") {
-        console.log(`You lose! ${computerChoice} beats ${playerChoice}`)
-        return lose
-    } else if (playerChoice == "paper" && computerChoice == "paper") {
-        console.log(`It's a draw ${playerChoice} is the same as ${computerChoice}`)
-        return draw
-    } else if (playerChoice == "scissors" && computerChoice == "paper") {
-        console.log(`You won! ${playerChoice} beats ${computerChoice}`)
-        return win
-    } else if (playerChoice == "scissors" && computerChoice == "rock") {
-        console.log(`You lose! ${computerChoice} beats ${playerChoice}`)
-        return lose
-    } else if (playerChoice == "scissors" && computerChoice == "scissors") {
-        console.log(`It's a draw ${playerChoice} is the same as ${computerChoice}`)
+    } else if (playerChoice == "rock" && computerChoice == "rock" ||
+        playerChoice == "paper" && computerChoice == "paper" ||
+        playerChoice == "scissors" && computerChoice == "scissors") {
         return draw
     }
 }
 
 function game() {
-    p1 = 0
-    cpu = 0
+    result = playRound();
+    roundNumber.textContent = 'Round: ' + round;
 
-    for (let i = 0; i < 5; i++) {
-        let result = playRound();
-
-        if (result == null) {
-            console.log("Canceled: The Game is over.")
-            break
-        }
-        else if (result == "win") {
-            p1++
-            console.log(`Congratulations you won! \n Your score is ${p1} and CPU ${cpu}`)
-        } else if (result == "lose") {
-            cpu++
-            console.log(`Too bad you loose! \n Your score is ${p1} and CPU ${cpu}`)
-        } else if (result == "draw") {
-            console.log(`It\'s a draw! \n Your score is ${p1} and CPU ${cpu}`)
-        }
+    if (result == win && round < 5) {
+        p1++;
+        p1ScoreNumber.textContent = p1;
+        roundResult.textContent = 'Congratulations you won this round!';
+    } else if (result == lose && round < 5) {
+        cpu++;
+        cpuScoreNumber.textContent = cpu;
+        roundResult.textContent = 'Too bad you lost this round!';
+    } else if (result == draw && round < 5) {
+        p1++;
+        cpu++;
+        cpuScoreNumber.textContent = cpu;
+        p1ScoreNumber.textContent = p1;
+        roundResult.textContent = 'It\'s a draw! What a coincidence';
     }
-
-    if (p1 > cpu) {
-        console.log("Congratulations you won the championship!")
+    else if (p1 > cpu && round == 5) {
+        finalResultText.textContent = 'Congratulations you won the championship!';
+        finalResult.style.display = 'flex';
         return
-    } else if (p1 < cpu) {
-        console.log("Too bad! You lost the championship")
+    } else if (p1 < cpu && round == 5) {
+        finalResultText.textContent = 'Too bad. You lost the championship!';
+        finalResult.style.display = 'flex';
         return
-    } else if (p1 = cpu) {
-        console.log("It's a draw! What a coincidence")
+    } else if (p1 = cpu && round == 5) {
+        finalResultText.textContent = 'It\'s a draw! What a coincidence!';
+        finalResult.style.display = 'flex';
+        return
+    } else {
         return
     }
 }
-
-game()

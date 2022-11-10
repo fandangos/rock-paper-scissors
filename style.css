@@ -1,0 +1,96 @@
+body {
+    background-color: rgb(0, 0, 0);
+    color:rgb(255, 255, 255);
+    margin: 0;
+    font-family: Roboto, sans-serif;
+    font-size: xx-large;
+}
+
+img {
+    max-height: 5vh;
+    background-color: transparent;
+}
+
+div {
+    text-align: center;
+    font-weight: bold;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 1;
+    min-height: 90vh;
+}
+
+.header {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.score {
+    display: flex;
+    justify-content: space-around;
+}
+
+.p1Score > * {
+    margin: 5px;
+}
+
+.cpuScore > * {
+    margin: 5px;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+}
+
+.result > * {
+    margin: 10px;
+}
+
+.roundResult {
+    margin-top: 30px;
+    min-height: 10vh;
+    line-height: 10vh;
+}
+
+
+.p1Choice {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.p1Choice > * {
+    border: solid 2px;
+    border-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    min-width: 20vh;
+    transition: all .07s ease;
+}
+
+.finalResult {
+    display: none;
+    flex-direction: column;
+    line-height: 10vh;
+    justify-content: center;
+    position: absolute;
+    z-index: 100;
+    margin-top: 10%;
+    margin-left: 10%;
+    min-height: 60%;
+    min-width: 80%;
+    border: solid 5px white;
+    background: black;
+    color: white;
+}
+
+#playAgain {
+    margin: 0 10vh 0 10vh; 
+    color: gold;
+    border: 2px white solid;
+    border-radius: 20px;
+}
