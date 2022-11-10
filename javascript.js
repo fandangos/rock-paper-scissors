@@ -57,7 +57,7 @@ function resetGame() {
     p1 = 0;
     p1ScoreNumber.textContent = p1;
     cpu = 0;
-    p1ScoreNumber.textContent = cpu;
+    cpuScoreNumber.textContent = cpu;
     round = 0;
     roundNumber.textContent = 'Let\'s go!';
     finalResult.style.display = 'none';
