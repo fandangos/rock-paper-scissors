@@ -17,6 +17,7 @@ const roundNumber = document.querySelector('#roundNumber');
 const roundResult = document.querySelector('#roundResult');
 const finalResult = document.querySelector('#finalResult');
 const finalResultText = document.querySelector('#finalResultText');
+const roundChoices = document.querySelector('#roundChoices');
 
 reset.addEventListener('click', resetGame);
 
@@ -57,11 +58,12 @@ function resetGame() {
     p1 = 0;
     p1ScoreNumber.textContent = p1;
     cpu = 0;
-    p1ScoreNumber.textContent = cpu;
+    cpuScoreNumber.textContent = cpu;
     round = 0;
     roundNumber.textContent = 'Let\'s go!';
     finalResult.style.display = 'none';
     roundResult.textContent = '';
+    roundChoices.innerHTML = '';
 }
 
 const rockBtn = document.querySelector('#rock');
@@ -106,17 +108,32 @@ function playRound() {
     if (playerChoice == null) {
         return null
     }
-    else if (playerChoice == "rock" && computerChoice == "paper" ||
-        playerChoice == "paper" && computerChoice == "scissors" ||
-        playerChoice == "scissors" && computerChoice == "rock") {
+    else if (playerChoice == "rock" && computerChoice == "paper") {
+        roundChoices.innerHTML = '<img src=img/rock.png> vs <img src=img/paper.png>'
         return lose
-    } else if (playerChoice == "rock" && computerChoice == "scissors" ||
-        playerChoice == "paper" && computerChoice == "rock" ||
-        playerChoice == "scissors" && computerChoice == "paper") {
+    } else if (playerChoice == "rock" && computerChoice == "scissors") {
+        roundChoices.innerHTML = '<img src=img/rock.png> vs <img src=img/scissors.png>'
         return win
-    } else if (playerChoice == "rock" && computerChoice == "rock" ||
-        playerChoice == "paper" && computerChoice == "paper" ||
-        playerChoice == "scissors" && computerChoice == "scissors") {
+    } else if (playerChoice == "rock" && computerChoice == "rock") {
+        roundChoices.innerHTML = '<img src=img/rock.png> vs <img src=img/rock.png>'
+        return draw
+    } else if (playerChoice == "paper" && computerChoice == "rock") {
+        roundChoices.innerHTML = '<img src=img/paper.png> vs <img src=img/rock.png>'
+        return win
+    } else if (playerChoice == "paper" && computerChoice == "scissors") {
+        roundChoices.innerHTML = '<img src=img/paper.png> vs <img src=img/scissors.png>'
+        return lose
+    } else if (playerChoice == "paper" && computerChoice == "paper") {
+        roundChoices.innerHTML = '<img src=img/paper.png> vs <img src=img/paper.png>'
+        return draw
+    } else if (playerChoice == "scissors" && computerChoice == "paper") {
+        roundChoices.innerHTML = '<img src=img/scissors.png> vs <img src=img/paper.png>'
+        return win
+    } else if (playerChoice == "scissors" && computerChoice == "rock") {
+        roundChoices.innerHTML = '<img src=img/scissors.png> vs <img src=img/rock.png>'
+        return lose
+    } else if (playerChoice == "scissors" && computerChoice == "scissors") {
+        roundChoices.innerHTML = '<img src=img/scissors.png> vs <img src=img/scissors.png>'
         return draw
     }
 }
