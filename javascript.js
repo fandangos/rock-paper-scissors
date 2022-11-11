@@ -28,7 +28,19 @@ buttons.forEach(btn => {
 });
 
 buttons.forEach(btn => {
+    btn.addEventListener('touchstart', event => {
+        btn.style.backgroundColor = '#fff';
+    })
+});
+
+buttons.forEach(btn => {
     btn.addEventListener('mouseleave', event => {
+        btn.style.backgroundColor = '';
+    })
+})
+
+buttons.forEach(btn => {
+    btn.addEventListener('touchend', event => {
         btn.style.backgroundColor = '';
     })
 })
@@ -145,17 +157,17 @@ function game() {
     if (result == win && round < 5) {
         p1++;
         p1ScoreNumber.textContent = p1;
-        roundResult.textContent = 'Congratulations you won this round!';
+        roundResult.textContent = 'You won this round!';
     } else if (result == lose && round < 5) {
         cpu++;
         cpuScoreNumber.textContent = cpu;
-        roundResult.textContent = 'Too bad you lost this round!';
+        roundResult.textContent = 'You lost this round!';
     } else if (result == draw && round < 5) {
         p1++;
         cpu++;
         cpuScoreNumber.textContent = cpu;
         p1ScoreNumber.textContent = p1;
-        roundResult.textContent = 'It\'s a draw! What a coincidence';
+        roundResult.textContent = 'It\'s a draw!';
     }
     else if (p1 > cpu && round == 5) {
         finalResultText.textContent = 'Congratulations you won the championship!';
